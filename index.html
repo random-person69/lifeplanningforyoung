@@ -3,93 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>職業性格與 AI 替代率測評系統 - 11 號攤位特別版</title>
+    <title>職業性格與 AI 替代率測評 - 11號攤位專屬</title>
     <style>
-        /* ================= 樣式設定 (CSS) ================= */
         body, html {
-            margin: 0;
-            padding: 0;
-            height: 100%;
+            margin: 0; padding: 0; height: 100%;
             font-family: 'Helvetica Neue', Arial, '微軟正黑體', sans-serif;
             background-image: url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=1920&auto=format&fit=crop');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            background-size: cover; background-position: center; background-attachment: fixed;
+            display: flex; justify-content: center; align-items: center;
         }
-
         .card {
             background-color: rgba(255, 255, 255, 0.95);
-            width: 95%;
-            max-width: 650px;
-            min-height: 450px;
-            border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            padding: 40px;
-            box-sizing: border-box;
-            position: relative;
+            width: 95%; max-width: 650px; min-height: 480px;
+            border-radius: 16px; box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            padding: 40px; box-sizing: border-box; position: relative;
         }
-
-        .hidden {
-            display: none !important;
-        }
-
+        .hidden { display: none !important; }
         h2 { color: #2b5c8f; line-height: 1.4; margin-bottom: 25px; }
-        h3 { color: #333; font-size: 22px; }
-        p { color: #555; font-size: 16px; line-height: 1.6; margin-bottom: 20px; }
-
+        h3 { color: #333; font-size: 22px; margin-top: 10px; }
+        p { color: #555; font-size: 16px; line-height: 1.7; margin-bottom: 20px; }
         .option-btn {
-            display: block;
-            width: 100%;
-            background-color: #f8f9fa;
-            border: 2px solid #e9ecef;
-            padding: 15px 20px;
-            margin-bottom: 12px;
-            border-radius: 8px;
-            font-size: 16px;
-            text-align: left;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            color: #333;
+            display: block; width: 100%; background-color: #f8f9fa;
+            border: 2px solid #e9ecef; padding: 15px 20px; margin-bottom: 12px;
+            border-radius: 10px; font-size: 16px; text-align: left;
+            cursor: pointer; transition: all 0.2s ease; color: #333;
+            line-height: 1.4;
         }
-
         .option-btn:hover {
-            background-color: #e2e6ea;
-            border-color: #dae0e5;
-            transform: translateY(-2px);
+            background-color: #e2e6ea; border-color: #3498db; transform: translateX(5px);
         }
-
-        /* 攤位資訊樣式 */
         .booth-info {
-            background-color: #e3f2fd;
-            color: #1976d2;
-            padding: 15px;
-            border-radius: 8px;
-            margin: 20px 0;
-            text-align: center;
-            font-weight: bold;
-            border: 1px dashed #2196f3;
+            background-color: #e3f2fd; color: #1976d2; padding: 15px;
+            border-radius: 8px; margin: 20px 0; text-align: center;
+            font-weight: bold; border: 1px dashed #2196f3;
         }
-
         .primary-btn {
-            background-color: #28a745;
-            color: white;
-            border: none;
-            padding: 15px 30px;
-            font-size: 18px;
-            font-weight: bold;
-            border-radius: 8px;
-            cursor: pointer;
-            display: block;
-            margin: 20px auto 0;
-            transition: background-color 0.3s ease;
+            background-color: #28a745; color: white; border: none;
+            padding: 15px 35px; font-size: 18px; font-weight: bold;
+            border-radius: 8px; cursor: pointer; display: block;
+            margin: 20px auto 0; transition: 0.3s;
         }
-
         .primary-btn:hover { background-color: #218838; }
-        .secondary-btn { background-color: #6c757d; margin-top: 20px; }
-        .progress { text-align: center; color: #888; font-size: 14px; margin-top: 30px; }
+        .secondary-btn { background-color: #6c757d; }
+        .progress { text-align: center; color: #888; font-size: 14px; margin-top: 25px; font-weight: bold;}
         .text-danger { color: #dc3545; }
     </style>
 </head>
@@ -97,118 +53,168 @@
 
     <div class="card">
         <div id="view-question">
-            <h2 id="q-text">題目載入中...</h2>
+            <h2 id="q-text">系統載入中...</h2>
             <div id="options-container"></div>
-            <div class="progress" id="progress-text">進度: 0 / 15</div>
+            <div class="progress" id="progress-text">進度: 0 / 12</div>
         </div>
 
         <div id="view-personality" class="hidden">
             <h2>測評完成！您的職業性格傾向是：</h2>
-            <h3 id="p-title"></h3>
+            <h3 id="p-title" style="color: #2b5c8f;"></h3>
             <p id="p-desc"></p>
-            <div class="booth-info">✨ 想要更深入的專業解析嗎？<br>更多內容可以在 11 號攤位體驗！</div>
-            <button class="primary-btn" onclick="showAIImpact()">OK (查看該職業被 AI 取代的可能性)</button>
+            <div class="booth-info">📍 更多深度內容與專人解析，歡迎至 11 號攤位體驗！</div>
+            <button class="primary-btn" onclick="showAIImpact()">查看 AI 時代競爭力分析</button>
         </div>
 
         <div id="view-ai-impact" class="hidden">
             <h2 id="ai-title" class="text-danger"></h2>
             <h3 id="ai-rate"></h3>
             <p id="ai-reason"></p>
-            <div class="booth-info">🚀 領取您的 AI 時代生存指南：<br>歡迎至 11 號攤位進行詳細諮詢！</div>
-            <button class="primary-btn secondary-btn" onclick="restartTest()">重新測試</button>
+            <div class="booth-info">🚀 想要獲得個人化轉型建議？11 號攤位等候您的光臨！</div>
+            <button class="primary-btn secondary-btn" onclick="restartTest()">重新測試 (隨機換題)</button>
         </div>
     </div>
 
     <script>
-        /* ================= 邏輯設定 (JavaScript) ================= */
-        
-        // 擴充至 15 題，涵蓋 RIASEC
-        const QUESTIONS = [
-            {q: "1. 在閒暇時間，你更傾向於做哪件事？", options: [{text: "拆解並修理壞掉的小家電", trait: "R"}, {text: "構思並繪製一幅插畫", trait: "A"}, {text: "閱讀一本關於宇宙起源的科普書", trait: "I"}]},
-            {q: "2. 面對複雜任務，你的第一反應是：", options: [{text: "馬上動手，邊做邊找感覺", trait: "R"}, {text: "尋找最獨特、最有創意的展現方式", trait: "A"}, {text: "先分析數據與底層邏輯", trait: "I"}]},
-            {q: "3. 你認為自己最大的優勢是：", options: [{text: "動手能力強，身體協調性好", trait: "R"}, {text: "想像力豐富，情感細膩", trait: "A"}, {text: "邏輯嚴密，善於發現問題根源", trait: "I"}]},
-            {q: "4. 如果參加短期培訓班，你會選擇：", options: [{text: "木工或機械操作實務", trait: "R"}, {text: "戲劇表演或劇本創作", trait: "A"}, {text: "數據分析與統計學", trait: "I"}]},
-            {q: "5. 你最理想的工作環境是：", options: [{text: "有專業設備的戶外或車間", trait: "R"}, {text: "充滿藝術氛圍的靈感空間", trait: "A"}, {text: "安靜的實驗室或數據中心", trait: "I"}]},
-            {q: "6. 當遇到爭論時，你通常依靠：", options: [{text: "直接演示實際效果", trait: "R"}, {text: "用富有感染力的語言打動他人", trait: "A"}, {text: "列出客觀數據與嚴謹推理", trait: "I"}]},
-            {q: "7. 你最喜歡看哪種類型的紀錄片？", options: [{text: "《超級工程》或《荒野求生》", trait: "R"}, {text: "《電影配樂傳奇》", trait: "A"}, {text: "《霍金的宇宙》", trait: "I"}]},
-            {q: "8. 面對雜亂的樂高積木，你會：", options: [{text: "按照圖紙一步步拼裝", trait: "R"}, {text: "隨心所欲拼出奇妙生物", trait: "A"}, {text: "先按顏色形狀進行分類", trait: "I"}]},
-            {q: "9. 你對以下哪個職業最感興趣？", options: [{text: "精密機械工程師", trait: "R"}, {text: "自由撰稿人/插畫師", trait: "A"}, {text: "人工智慧演算法研究員", trait: "I"}]},
-            {q: "10. 為新產品做貢獻，你會負責：", options: [{text: "製造產品的實體原型", trait: "R"}, {text: "設計產品外觀與文案", trait: "A"}, {text: "測試性能並撰寫報告", trait: "I"}]},
-            {q: "11. 在聚會中，你通常扮演什麼角色？", options: [{text: "傾聽他人的煩惱並給予安慰", trait: "S"}, {text: "主導話題，推銷自己的想法", trait: "E"}, {text: "確保活動按流程進行", trait: "C"}]},
-            {q: "12. 處理文件時，你最在乎的是：", options: [{text: "內容是否能幫助到人", trait: "S"}, {text: "是否能達成商業目標", trait: "E"}, {text: "格式與數據是否精確", trait: "C"}]},
-            {q: "13. 如果要經營一家店，你會選擇：", options: [{text: "非營利社區服務空間", trait: "S"}, {text: "追求利潤的連鎖餐廳", trait: "E"}, {text: "專業會計或物流管理中心", trait: "C"}]},
-            {q: "14. 面對衝突，你的處理方式是：", options: [{text: "化解雙方心結", trait: "S"}, {text: "果斷決策，以大局為重", trait: "E"}, {text: "依據規章制度裁決", trait: "C"}]},
-            {q: "15. 你最希望獲得哪種成就感？", options: [{text: "看到他人因我而改變", trait: "S"}, {text: "帶領團隊達成目標", trait: "E"}, {text: "建立高效精確的系統", trait: "C"}]}
+        // 模組化題庫設計 (6 大分類池，共 30 題)
+        // 池 1: 比較 R, I, A
+        const POOL_1 = [
+            {q: "閒暇時你喜歡：", options: [{text: "修理腳踏車或小家電", trait: "R"}, {text: "閱讀科普雜誌", trait: "I"}, {text: "參觀美術館或畫畫", trait: "A"}]},
+            {q: "面對一個新產品，你最感興趣的是：", options: [{text: "它的內部機械結構", trait: "R"}, {text: "它背後的科學原理", trait: "I"}, {text: "它的外觀設計與美感", trait: "A"}]},
+            {q: "朋友眼中的你通常是：", options: [{text: "動手能力強、務實", trait: "R"}, {text: "喜歡思考、充滿好奇心", trait: "I"}, {text: "品味獨特、充滿創意", trait: "A"}]},
+            {q: "如果要參加週末工作坊，你會選：", options: [{text: "木工或陶藝實作", trait: "R"}, {text: "數據分析與邏輯推演", trait: "I"}, {text: "自由寫作或戲劇表演", trait: "A"}]},
+            {q: "解決問題時，你通常依賴：", options: [{text: "實際操作與工具", trait: "R"}, {text: "客觀數據與分析", trait: "I"}, {text: "直覺與靈感", trait: "A"}]}
         ];
 
-        // 完整性格資料
+        // 池 2: 比較 S, E, C
+        const POOL_2 = [
+            {q: "在團隊中你通常負責：", options: [{text: "關心大家的情緒與氛圍", trait: "S"}, {text: "設定目標並帶領大家前進", trait: "E"}, {text: "記錄進度與管理預算", trait: "C"}]},
+            {q: "理想的工作環境是：", options: [{text: "能幫助他人、充滿溫暖", trait: "S"}, {text: "充滿挑戰與晉升機會", trait: "E"}, {text: "有明確規範與穩定流程", trait: "C"}]},
+            {q: "處理一份專案時，你最在乎：", options: [{text: "是否能滿足使用者的需求", trait: "S"}, {text: "是否能為公司帶來最大利潤", trait: "E"}, {text: "格式是否正確、有沒有錯字", trait: "C"}]},
+            {q: "你認為一個好主管應該：", options: [{text: "像導師一樣耐心指導員工", trait: "S"}, {text: "具備強大的戰略眼光", trait: "E"}, {text: "賞罰分明、做事有條不紊", trait: "C"}]},
+            {q: "你的休閒活動偏好：", options: [{text: "去當志工或參加社交聚會", trait: "S"}, {text: "參加商業交流會擴展人脈", trait: "E"}, {text: "整理房間、記帳或規劃行程", trait: "C"}]}
+        ];
+
+        // 池 3: 比較 R, S, C
+        const POOL_3 = [
+            {q: "面對一項新任務，你會：", options: [{text: "先準備好需要的工具設備", trait: "R"}, {text: "先找人討論，聽聽別人的意見", trait: "S"}, {text: "先閱讀標準作業手冊 (SOP)", trait: "C"}]},
+            {q: "如果你在學校任職，你想做：", options: [{text: "負責維護設備的總務人員", trait: "R"}, {text: "負責輔導學生的心理老師", trait: "S"}, {text: "負責排課與檔案管理的行政", trait: "C"}]},
+            {q: "遇到壓力時，你習慣：", options: [{text: "去運動或做些勞力活發洩", trait: "R"}, {text: "找好朋友傾訴煩惱", trait: "S"}, {text: "把要做的事情列成清單一一劃掉", trait: "C"}]},
+            {q: "你認為有價值的事物是：", options: [{text: "堅固耐用的實體物品", trait: "R"}, {text: "深厚且真誠的人際關係", trait: "S"}, {text: "有秩序、高效率的系統", trait: "C"}]},
+            {q: "在一個社區計畫中，你願意：", options: [{text: "動手修繕社區的公共設施", trait: "R"}, {text: "挨家挨戶拜訪了解居民需求", trait: "S"}, {text: "負責管理社區基金與報表", trait: "C"}]}
+        ];
+
+        // 池 4: 比較 I, A, E
+        const POOL_4 = [
+            {q: "你最喜歡的電視節目類型：", options: [{text: "探索宇宙或歷史的紀錄片", trait: "I"}, {text: "探討人性與藝術的獨立電影", trait: "A"}, {text: "分析商業趨勢或投資的節目", trait: "E"}]},
+            {q: "當你遇到一個難題時：", options: [{text: "你會想深入研究它的根本原因", trait: "I"}, {text: "你會想出一個別人沒想過的破格解法", trait: "A"}, {text: "你會思考這個難題能否轉化為商機", trait: "E"}]},
+            {q: "如果你有一筆創業資金，你會開：", options: [{text: "高科技研發實驗室", trait: "I"}, {text: "具備個人風格的設計工作室", trait: "A"}, {text: "能快速擴張的連鎖加盟品牌", trait: "E"}]},
+            {q: "你最佩服哪種人？", options: [{text: "發現新理論的諾貝爾獎得主", trait: "I"}, {text: "創作出傳世名作的藝術大師", trait: "A"}, {text: "白手起家建立商業帝國的企業家", trait: "E"}]},
+            {q: "參加一場研討會，你希望學到：", options: [{text: "最新的科學研究數據", trait: "I"}, {text: "如何激發自己的創意思維", trait: "A"}, {text: "如何說服投資人與行銷策略", trait: "E"}]}
+        ];
+
+        // 池 5: 比較 R, E, A
+        const POOL_5 = [
+            {q: "在一部電影製作中，你想擔任：", options: [{text: "操作攝影機與燈光的設備師", trait: "R"}, {text: "負責找資金和談判的製片人", trait: "E"}, {text: "構思畫面與劇情的美術或編劇", trait: "A"}]},
+            {q: "關於你的個人空間：", options: [{text: "充滿各種實用的工具或零件", trait: "R"}, {text: "放滿了能彰顯成就的物品", trait: "E"}, {text: "佈置得非常有氣氛、充滿特色", trait: "A"}]},
+            {q: "面對一場比賽，你的心態是：", options: [{text: "把自己的技術發揮到極致", trait: "R"}, {text: "我一定要贏，並主導團隊策略", trait: "E"}, {text: "名次不重要，重要的是展現自我", trait: "A"}]},
+            {q: "規劃一趟旅行，你最期待：", options: [{text: "體驗戶外探險或極限運動", trait: "R"}, {text: "享受奢華服務或尋找投資靈感", trait: "E"}, {text: "參觀當地的美術館、體驗文化", trait: "A"}]},
+            {q: "你覺得哪種稱讚最讓你高興？", options: [{text: "「你的手藝/技術真好！」", trait: "R"}, {text: "「你真有領導力/商業頭腦！」", trait: "E"}, {text: "「你的品味/點子太獨特了！」", trait: "A"}]}
+        ];
+
+        // 池 6: 比較 I, S, C
+        const POOL_6 = [
+            {q: "如果在醫院工作，你想成為：", options: [{text: "研究新型疾病的醫學研究員", trait: "I"}, {text: "耐心照顧病患的護理師", trait: "S"}, {text: "管理病歷資料庫的行政員", trait: "C"}]},
+            {q: "對待學習，你的態度是：", options: [{text: "喜歡追根究底，理解底層邏輯", trait: "I"}, {text: "希望能將學到的知識用來幫助別人", trait: "S"}, {text: "把重點精確地背下來或整理好", trait: "C"}]},
+            {q: "處理一份長篇報告時：", options: [{text: "你負責查證資料的真實性與邏輯", trait: "I"}, {text: "你負責讓報告內容貼近讀者的感受", trait: "S"}, {text: "你負責統一排版格式與校對錯字", trait: "C"}]},
+            {q: "你最受不了哪種情況？", options: [{text: "大家憑感覺做事，沒有客觀證據", trait: "I"}, {text: "團隊裡充滿冷漠，互相不關心", trait: "S"}, {text: "沒有規則可循，朝令夕改", trait: "C"}]},
+            {q: "你的完美假日是：", options: [{text: "安靜地解開一個複雜的謎題", trait: "I"}, {text: "和一群好朋友開心地聚餐聊天", trait: "S"}, {text: "把一週的代辦事項按部就班處理完", trait: "C"}]}
+        ];
+
+        // 人格與 AI 解析資料
         const PERSONALITY_INFO = {
-            "R": {title: "R型 - 實際型 (Realistic)", desc: "你喜歡具體的任務，動手能力強，偏好使用工具。通常偏好能看到實際成果的工作。"},
-            "A": {title: "A型 - 藝術型 (Artistic)", desc: "你富有創造力與直覺，追求個性化。擅長透過文字或藝術表達深刻的情感。"},
-            "I": {title: "I型 - 研究型 (Investigative)", desc: "你充滿好奇心，擅長邏輯分析與解決複雜問題。習慣用理性數據理解世界。"},
-            "S": {title: "S型 - 社交型 (Social)", desc: "你具備高度同理心。喜歡與人互動，擅長教導、諮商或服務他人。"},
-            "E": {title: "E型 - 企業型 (Enterprising)", desc: "你具備領導力與說服力，喜歡競爭與冒險。擅長組織資源並達成商業目標。"},
-            "C": {title: "C型 - 常規型 (Conventional)", desc: "你細心且尊重規則。喜歡處理數據與行政事務，追求效率與精確度。"}
+            "R": {title: "R型 - 實際型", desc: "喜歡與實體對象（工具、機器）工作。AI 時代下，你的高階維修與實體操作能力具備獨特性。"},
+            "I": {title: "I型 - 研究型", desc: "喜歡分析與思考。AI 是你的最強助手，能助你處理海量數據，突破邏輯難點。"},
+            "A": {title: "A型 - 藝術型", desc: "富有想像力，追求創新。AI 難以複製你的「靈魂感」與獨特審美。"},
+            "S": {title: "S型 - 社交型", desc: "喜歡幫助與教導他人。AI 時代最缺的就是「真實的溫度」，你在人際服務領域是不敗的。"},
+            "E": {title: "E型 - 企業型", desc: "善於領導與說服。AI 能提供數據，但決策者的膽識、人脈與談判智慧由你掌握。"},
+            "C": {title: "C型 - 常規型", desc: "注重流程與細節。雖然受 AI 衝擊大，但高階內控與系統優化仍需要你的把關。"}
         };
 
         const AI_IMPACT_INFO = {
-            "R": {rate: "60% - 80% (高風險)", reason: "高風險：重複性體力勞動極易被機器人取代。建議提升設備維修與管理技能。"},
-            "A": {rate: "15% - 25% (低風險)", reason: "低風險：AI 缺乏真正的靈魂與情感共鳴，你的核心競爭力在於人性表達。"},
-            "I": {rate: "30% - 50% (中等風險)", reason: "中等風險：AI 擅長數據分析，但核心的科學決策與從零到一的創新仍依賴人類。"},
-            "S": {rate: "20% - 35% (低風險)", reason: "低風險：真實的情感連結與深度共情是 AI 目前無法模擬的，人際服務價值穩固。"},
-            "E": {rate: "25% - 40% (中低風險)", reason: "中低風險：複雜的商業談判與領導魅力是 AI 難以掌握的「政治智慧」。"},
-            "C": {rate: "75% - 90% (高風險)", reason: "高風險：這是 AI 的核心戰場，標準化流程極易被自動化取代。建議轉向流程優化。"}
+            "R": {rate: "60-80%", reason: "重複性操作易被取代，建議轉向客製化、高階儀器維護領域。"},
+            "I": {rate: "30-50%", reason: "AI 擅長運算，但核心科學決策與假設發想仍依賴你的理性大腦。"},
+            "A": {rate: "15-25%", reason: "風險極低。情感表達與人性共鳴是 AI 無法逾越的鴻溝。"},
+            "S": {rate: "20-35%", reason: "低風險。人際信任與深度諮商需要真人，AI 只能提供表面對話。"},
+            "E": {rate: "25-40%", reason: "中低風險。商業洞察力與對人性的拿捏是你的最強盾牌。"},
+            "C": {rate: "75-90%", reason: "高風險。標準化流程極易被自動化，建議轉向「流程設計師」或合規監督者。"}
         };
 
-        let scores = { "R": 0, "A": 0, "I": 0, "S": 0, "E": 0, "C": 0 };
+        let scores = { "R": 0, "I": 0, "A": 0, "S": 0, "E": 0, "C": 0 };
+        let currentQuestions = [];
         let currentQIndex = 0;
         let finalType = "";
+        const TEST_COUNT = 12; // 總題數固定為 12 題
 
         const viewQuestion = document.getElementById('view-question');
         const viewPersonality = document.getElementById('view-personality');
         const viewAIImpact = document.getElementById('view-ai-impact');
 
-        window.onload = loadQuestion;
+        window.onload = initTest;
+
+        // 洗牌小工具
+        function shuffleArray(array) {
+            return array.sort(() => 0.5 - Math.random());
+        }
+
+        function initTest() {
+            // 分層抽樣：從 6 個池子中各抽 2 題 (2 x 6 = 12題)
+            // 這樣可以保證 R,I,A,S,E,C 每個選項在 12 題中都剛好出現 6 次！
+            let selected = [
+                ...shuffleArray([...POOL_1]).slice(0, 2),
+                ...shuffleArray([...POOL_2]).slice(0, 2),
+                ...shuffleArray([...POOL_3]).slice(0, 2),
+                ...shuffleArray([...POOL_4]).slice(0, 2),
+                ...shuffleArray([...POOL_5]).slice(0, 2),
+                ...shuffleArray([...POOL_6]).slice(0, 2)
+            ];
+            
+            // 將挑出來的 12 題順序打亂，讓受測者看不出規律
+            currentQuestions = shuffleArray(selected);
+            loadQuestion();
+        }
 
         function loadQuestion() {
-            if (currentQIndex < QUESTIONS.length) {
-                const qData = QUESTIONS[currentQIndex];
-                document.getElementById('q-text').innerText = qData.q;
-                const optionsContainer = document.getElementById('options-container');
-                optionsContainer.innerHTML = '';
+            if (currentQIndex < currentQuestions.length) {
+                const qData = currentQuestions[currentQIndex];
+                document.getElementById('q-text').innerText = `${currentQIndex + 1}. ${qData.q}`;
+                const container = document.getElementById('options-container');
+                container.innerHTML = '';
                 
-                qData.options.forEach(opt => {
+                // 選項也稍微打亂，避免 R 永遠在第一個
+                let shuffledOptions = shuffleArray([...qData.options]);
+                
+                shuffledOptions.forEach(opt => {
                     const btn = document.createElement('button');
                     btn.className = 'option-btn';
                     btn.innerText = opt.text;
-                    btn.onclick = () => recordAnswer(opt.trait);
-                    optionsContainer.appendChild(btn);
+                    btn.onclick = () => { scores[opt.trait]++; currentQIndex++; loadQuestion(); };
+                    container.appendChild(btn);
                 });
-
-                document.getElementById('progress-text').innerText = `進度: ${currentQIndex + 1} / ${QUESTIONS.length}`;
+                document.getElementById('progress-text').innerText = `目前進度: ${currentQIndex + 1} / ${TEST_COUNT}`;
             } else {
                 calculateResult();
             }
         }
 
-        function recordAnswer(trait) {
-            scores[trait]++;
-            currentQIndex++;
-            loadQuestion();
-        }
-
         function calculateResult() {
             let maxScore = -1;
-            for (const [trait, score] of Object.entries(scores)) {
-                if (score > maxScore) {
-                    maxScore = score;
+            for (let trait in scores) {
+                if (scores[trait] > maxScore) {
+                    maxScore = scores[trait];
                     finalType = trait;
                 }
             }
-            showPersonalityResult();
-        }
-
-        function showPersonalityResult() {
             viewQuestion.classList.add('hidden');
             viewPersonality.classList.remove('hidden');
             const info = PERSONALITY_INFO[finalType];
@@ -219,21 +225,19 @@
         function showAIImpact() {
             viewPersonality.classList.add('hidden');
             viewAIImpact.classList.remove('hidden');
-            const typeTitle = PERSONALITY_INFO[finalType].title;
             const aiInfo = AI_IMPACT_INFO[finalType];
-            document.getElementById('ai-title').innerText = `【${typeTitle}】 的未來生存挑戰`;
-            document.getElementById('ai-rate').innerText = `AI 取代可能性預測: ${aiInfo.rate}`;
+            document.getElementById('ai-title').innerText = `【${PERSONALITY_INFO[finalType].title}】 AI 競爭力報告`;
+            document.getElementById('ai-rate').innerText = `AI 取代可能性預測：${aiInfo.rate}`;
             document.getElementById('ai-reason').innerText = aiInfo.reason;
         }
 
         function restartTest() {
-            scores = { "R": 0, "A": 0, "I": 0, "S": 0, "E": 0, "C": 0 };
+            scores = { "R": 0, "I": 0, "A": 0, "S": 0, "E": 0, "C": 0 };
             currentQIndex = 0;
             viewAIImpact.classList.add('hidden');
             viewQuestion.classList.remove('hidden');
-            loadQuestion();
+            initTest(); // 重新觸發分層抽樣
         }
     </script>
 </body>
 </html>
-
